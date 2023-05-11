@@ -137,12 +137,15 @@ namespace PathFindLib.PathFindA
                     {
                         if (openNodes[currentPlace + 1].TotalCost > node.TotalCost)
                         {
-                            placed = true;
                             currentPlace++;
+                            placed = true;
                         }
                     }
                     else
-                    { placed = true; }
+                    {
+                        currentPlace++;
+                        placed = true; 
+                    }
                 }
 
                 if (!placed)

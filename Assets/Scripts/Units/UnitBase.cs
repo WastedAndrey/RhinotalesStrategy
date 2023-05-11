@@ -25,13 +25,15 @@ public class UnitBase : MonoBehaviour
     protected int _movementSpeed;
     [SerializeField]
     protected bool _isSelected;
-
+    [SerializeField]
+    protected bool _isUnitTurn;
 
     public virtual UnitType UnitType { get => _unitType; set => _unitType = value; }
     public virtual PlayerTeam Team { get => _team; set => _team = value; }
     public virtual Vector2Int CellIndex { get => _cellIndex; set => _cellIndex = value; }
     public virtual int MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
     public virtual bool IsSelected { get => _isSelected; set => _isSelected = value; }
+    public virtual bool IsUnitTurn { get => _isUnitTurn; set => _isUnitTurn = value; }
     public Map Map { get; private set; }
 
 

@@ -26,6 +26,7 @@ public class UnitInitSystem : IExecuteSystem
             if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn)
             {
                 item.isUnitTurn = true;
+                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = true;
             }
 
             item.isUnitRequestInit = false;

@@ -18,7 +18,7 @@ public class MovementAnimationSystem : IExecuteSystem
         var entitiesArray = _entities.GetEntities();
         foreach (var item in entitiesArray)
         {
-            item.movementAnimation.Progress += Time.deltaTime;
+            item.movementAnimation.Progress += Time.deltaTime * 8;
             int previousPositionIndex = (int)item.movementAnimation.Progress;
             int nextPositionIndex = previousPositionIndex + 1;
             float progressBetweenPoints = item.movementAnimation.Progress % 1;

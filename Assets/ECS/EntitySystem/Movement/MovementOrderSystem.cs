@@ -1,6 +1,7 @@
 ﻿
 
 using Entitas;
+using PathFindLib.PathFindA;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,26 +26,29 @@ public class MovementOrderSystem : IExecuteSystem
             return;
 
         var entitiesUnitsArray = _entitiesUnits.GetEntities();
+        var cellEntity = _entitiesCells.GetSingleEntity();
+        if (cellEntity == null)
+            return;
+
         foreach (var unitEntity in entitiesUnitsArray)
         {
             BattlefieldComponent battlefield = unitEntity.battlefieldLink.BattlefieldEntity.battlefield;
             battlefield.Cells[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y].cell.InnerEntity = null;
             battlefield.CellsPassMap[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y] = true;
 
-            foreach (var cellEntity in _entitiesCells)
-            {
-                var path = Pathfind.GetPath(unitEntity.cellIndex.Index, cellEntity.cellIndex.Index);
-
-                unitEntity.cellIndex.Index = cellEntity.cellIndex.Index;
-                cellEntity.cell.InnerEntity = unitEntity;
-                battlefield.CellsPassMap[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y] = false;
-                unitEntity.isUnitTurn = false;
-                unitEntity.isLockUI = true;
-                unitEntity.isLockInput = true;
-                unitEntity.AddMovementAnimation(0, path, unitEntity.battlefieldLink.BattlefieldEntity.battlefield.MapSettings);
-                break;
-            }
-           
+            var path = PathFindA.PathFind(unitEntity.cellIndex.Index, cellEntity.cellIndex.Index, battlefield.CellsPassMap);
+            path.Reverse();
+            path.Add(cellEntity.cellIndex.Index);
+            unitEntity.cellIndex.Index = cellEntity.cellIndex.Index;
+            cellEntity.cell.InnerEntity = unitEntity;
+            battlefield.CellsPassMap[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y] = false;
+            unitEntity.isUnitTurn = false;
+            unitEntity.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = false;
+            unitEntity.isSelected = false;
+            unitEntity.scriptLink.Script.GetComponent<UnitBase>().IsSelected = false;
+            unitEntity.isLockUI = true;
+            unitEntity.isLockInput = true;
+            unitEntity.AddMovementAnimation(0, path, unitEntity.battlefieldLink.BattlefieldEntity.battlefield.MapSettings);
         }
     }
 }

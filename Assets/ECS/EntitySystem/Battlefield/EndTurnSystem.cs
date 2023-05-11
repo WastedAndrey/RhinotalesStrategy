@@ -47,10 +47,14 @@ public class EndTurnSystem : IExecuteSystem
             if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn)
             {
                 item.isUnitTurn = true;
+                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = true;
             }
             else
             {
                 item.isUnitTurn = false;
+                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = false;
+                item.isSelected = false;
+                item.scriptLink.Script.GetComponent<UnitBase>().IsSelected = false;
             }
         }
 

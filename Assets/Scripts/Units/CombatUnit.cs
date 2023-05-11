@@ -10,6 +10,8 @@ public class CombatUnit : UnitBase
     private List<Renderer> _renderers = new List<Renderer>();
     [SerializeField]
     private GameObject _selectedEffect;
+    [SerializeField]
+    private GameObject _unitTurnEffect;
 
     public override PlayerTeam Team
     {
@@ -30,6 +32,16 @@ public class CombatUnit : UnitBase
             _selectedEffect.SetActive(value);
             base.IsSelected = value; 
         } 
+    }
+
+    public override bool IsUnitTurn
+    {
+        get => base.IsUnitTurn;
+        set
+        {
+            _unitTurnEffect.SetActive(value);
+            base.IsUnitTurn = value;
+        }
     }
 
     private void ChangeMaterial(Material material)
