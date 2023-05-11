@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f774876c4b878304ba676076cf9d5952, type: 3}
+  m_Name: PlayerTeamSettings
+  m_EditorClassIdentifier: 
+  _colorSettings:
+  - Key: 1
+    Value: {fileID: 2100000, guid: 62c0a420e1e4d6e409cd16734abb0c57, type: 2}
+  - Key: 2
+    Value: {fileID: 2100000, guid: 66bdb10d4fe590d4e86c8752222dcb08, type: 2}
+  - Key: 0
+    Value: {fileID: 2100000, guid: dd65b23df044fad43ba844ca5b5e95d3, type: 2}
