@@ -1,0 +1,2 @@
+# RhinotalesStrategy
+TestTask for Rhinotales
