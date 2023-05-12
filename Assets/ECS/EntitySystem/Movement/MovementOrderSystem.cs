@@ -33,10 +33,14 @@ public class MovementOrderSystem : IExecuteSystem
         foreach (var unitEntity in entitiesUnitsArray)
         {
             BattlefieldComponent battlefield = unitEntity.battlefieldLink.BattlefieldEntity.battlefield;
+
+            var path = PathFindA.PathFind(unitEntity.cellIndex.Index, cellEntity.cellIndex.Index, battlefield.CellsPassMap);
+            if (path == null)
+                continue;
+
             battlefield.Cells[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y].cell.InnerEntity = null;
             battlefield.CellsPassMap[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y] = true;
 
-            var path = PathFindA.PathFind(unitEntity.cellIndex.Index, cellEntity.cellIndex.Index, battlefield.CellsPassMap);
             path.Reverse();
             path.Add(cellEntity.cellIndex.Index);
             unitEntity.cellIndex.Index = cellEntity.cellIndex.Index;

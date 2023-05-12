@@ -51,7 +51,7 @@ public class Map : MonoBehaviour
             return false;
 
         Vector3 position = Settings.GetCellPosition(cellIndex);
-        UnitBase newUnit;
+        UnitBase newUnit = null;
         if (Application.isPlaying)
             newUnit = Instantiate(prefab, position, Quaternion.identity);
         else
