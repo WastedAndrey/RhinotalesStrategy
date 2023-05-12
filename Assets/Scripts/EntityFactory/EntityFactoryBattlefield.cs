@@ -10,13 +10,13 @@ public class EntityFactoryBattlefield : EntityFactoryBase
         EntityLink link = gameObject.GetComponent<EntityLink>();
         entity.AddScriptLink(link);
 
-        var cells = CreateCells(entity, map.Settings.CellsCount);
+        var cells = CreateCells(map, entity, map.Settings.CellsCount);
         entity.AddBattlefield(PlayerTeam.TeamRed, map.Settings, cells, GetCellMap(map.Settings));
 
         return entity;
     }
 
-    private GameEntity[,] CreateCells(GameEntity battleField, Vector2Int cellsCount)
+    private GameEntity[,] CreateCells(Map map, GameEntity battleField, Vector2Int cellsCount)
     {
         var contexts = Contexts.sharedInstance;
 

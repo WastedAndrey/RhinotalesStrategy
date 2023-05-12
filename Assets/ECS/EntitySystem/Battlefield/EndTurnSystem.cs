@@ -17,8 +17,8 @@ public class EndTurnSystem : IExecuteSystem
 
     public void Execute()
     {
-        var entitiesEndTurnArray = _entitiesEndTurn.GetEntities();
-        foreach (var item in entitiesEndTurnArray)
+        var entityEndTurn = _entitiesEndTurn.GetSingleEntity();
+        if (entityEndTurn != null)
         {
             EndTurn();
             return;
@@ -44,17 +44,16 @@ public class EndTurnSystem : IExecuteSystem
 
         foreach (var item in _entitiesUnits)
         {
-            if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn)
+            if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn && item.unitCombatType.UnitCombatType != UnitCombatType.NonCombat)
             {
                 item.isUnitTurn = true;
-                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = true;
+                item.isRequestUpdateUnitView = true;
             }
             else
             {
                 item.isUnitTurn = false;
-                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = false;
                 item.isSelected = false;
-                item.scriptLink.Script.GetComponent<UnitBase>().IsSelected = false;
+                item.isRequestUpdateUnitView = true;
             }
         }
 

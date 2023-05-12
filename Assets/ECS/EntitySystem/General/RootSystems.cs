@@ -24,6 +24,9 @@ public class RootSystems : Feature
         // Animation
         Add(new MovementAnimationSystem(contexts));
 
+        // Unity Scripts Update
+        Add(new UpdateUnitViewSystem(contexts));
+        Add(new DestroyUnitSystem(contexts));
         // Clearing
         Add(new RemoveClickSystem(contexts));
         Add(new RemoveButtonClickSystem(contexts));

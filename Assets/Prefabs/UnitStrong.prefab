@@ -67,7 +67,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 8346707058233406048}
   _link: {fileID: 911571484150040237}
-  _unitType: 1
+  _unitType: 2
+  _unitCombatType: 1
   _team: 0
   _cellIndex: {x: 0, y: 0}
   _movementSpeed: 0

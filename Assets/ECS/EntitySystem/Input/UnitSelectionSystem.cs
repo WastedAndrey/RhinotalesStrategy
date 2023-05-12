@@ -22,7 +22,7 @@ public class UnitSelectionSystem : IExecuteSystem
             ClearSelected();
 
             item.isSelected = true;
-            item.scriptLink.Script.GetComponent<UnitBase>().IsSelected = true;
+            item.isRequestUpdateUnitView = true;
             break;
         }
     }
@@ -33,7 +33,7 @@ public class UnitSelectionSystem : IExecuteSystem
         for (int i = 0; i < entitiesArray.Length; i++)
         {
             entitiesArray[i].isSelected = false;
-            entitiesArray[i].scriptLink.Script.GetComponent<UnitBase>().IsSelected = false;
+            entitiesArray[i].isRequestUpdateUnitView = true;
         }
     }
 }

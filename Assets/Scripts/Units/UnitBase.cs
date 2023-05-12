@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum UnitType
-{ 
+{
+    Wall,
     UnitWeak,
     UnitStrong,
-    Wall
+}
+
+public enum UnitCombatType
+{
+    NonCombat,
+    Combat
 }
 
 public class UnitBase : MonoBehaviour
@@ -18,6 +25,8 @@ public class UnitBase : MonoBehaviour
     [SerializeField]
     protected UnitType _unitType;
     [SerializeField]
+    protected UnitCombatType _unitCombatType;
+    [SerializeField]
     protected PlayerTeam _team;
     [SerializeField]
     protected Vector2Int _cellIndex;
@@ -29,13 +38,28 @@ public class UnitBase : MonoBehaviour
     protected bool _isUnitTurn;
 
     public virtual UnitType UnitType { get => _unitType; set => _unitType = value; }
+    public virtual UnitCombatType UnitCombatType { get => _unitCombatType; set => _unitCombatType = value; }
     public virtual PlayerTeam Team { get => _team; set => _team = value; }
-    public virtual Vector2Int CellIndex { get => _cellIndex; set => _cellIndex = value; }
+    public virtual Vector2Int CellIndex 
+    { 
+        get => _cellIndex; 
+        set
+        {
+            if (_cellIndex == value)
+                return;
+
+            var previousIndex = _cellIndex;
+            _cellIndex = value;
+            CellChanged?.Invoke(this, previousIndex, _cellIndex); 
+        } 
+    }
     public virtual int MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
     public virtual bool IsSelected { get => _isSelected; set => _isSelected = value; }
     public virtual bool IsUnitTurn { get => _isUnitTurn; set => _isUnitTurn = value; }
     public Map Map { get; private set; }
 
+    public Action<UnitBase, Vector2Int, Vector2Int> CellChanged;
+    public Action<UnitBase> Destroyed;
 
     public bool IsTurnAvailable = false;
 
@@ -86,11 +110,13 @@ public class UnitBase : MonoBehaviour
     private void OnDestroy()
     {
         OnDestroyInternal();
+        Destroyed?.Invoke(this);
     }
     protected virtual void OnDestroyInternal() { }
 
     public void Remove()
     {
+        _link.Entity.isRequestDestroyUnitEntity = true;
         RemoveInternal();
 
         if (Application.isPlaying)

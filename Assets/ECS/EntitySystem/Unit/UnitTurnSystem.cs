@@ -26,7 +26,7 @@ public class UnitTurnSystem : IExecuteSystem
 
             item.AddMovementAnimation(0, path, mapSettings);
             item.isUnitTurn = false;
-            item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = false;
+            item.isRequestUpdateUnitView = true;
         }
     }
 }

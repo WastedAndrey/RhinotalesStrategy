@@ -30,6 +30,7 @@ public class Map : MonoBehaviour
         for (int i = 0; i < _units.Count; i++)
         {
             _units[i].Init(this);
+            SubscribeToUnitEvents(_units[i]);
         }
     }
 
@@ -41,13 +42,8 @@ public class Map : MonoBehaviour
 
         _data.CreateCells(_settings.CellsCount);
         _vizualizer.DrawGrid(_settings);
-        _vizualizer.EnableHighlight(_settings, new List<Vector2Int>() { _settings.GetRandomCell() });
     }
-    [Button]
-    public void Higlight()
-    {
-        _vizualizer.EnableHighlight(_settings, new List<Vector2Int>() { _settings.GetRandomCell() });
-    }
+
 
     public bool CreateUnit(UnitBase prefab, Vector2Int cellIndex, PlayerTeam team)
     {
@@ -70,6 +66,13 @@ public class Map : MonoBehaviour
         newUnit.transform.SetParent(_unitsParent);
         _units.Add(newUnit);
         _data.GetCell(cellIndex).Unit = newUnit;
+
+        if (Application.isPlaying)
+        {
+            newUnit.Init(this);
+            SubscribeToUnitEvents(newUnit);
+        }
+
         return true;
     }
     public bool DestroyUnit(Vector2Int cellIndex)
@@ -100,5 +103,24 @@ public class Map : MonoBehaviour
         return _data.GetCell(cellIndex).Unit == null;
     }
 
+    private void SubscribeToUnitEvents(UnitBase unit)
+    {
+        unit.CellChanged += OnUnitCellChanged;
+        unit.Destroyed += OnUnitDestroyed;
+    }
+    private void UnsubscribeFromUnitEvents(UnitBase unit)
+    {
+        unit.CellChanged -= OnUnitCellChanged;
+        unit.Destroyed -= OnUnitDestroyed;
+    }
+    private void OnUnitCellChanged(UnitBase unit, Vector2Int previousCellIndex, Vector2Int newCellIndex)
+    {
+        _data.GetCell(previousCellIndex).Unit = null;
+        _data.GetCell(newCellIndex).Unit = unit;
+    }
 
+    private void OnUnitDestroyed(UnitBase unit)
+    {
+        UnsubscribeFromUnitEvents(unit);
+    }
 }

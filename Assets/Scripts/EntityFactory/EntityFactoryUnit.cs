@@ -10,7 +10,7 @@ public class EntityFactoryUnit : EntityFactoryBase
         EntityLink link = gameObject.GetComponent<EntityLink>();
         entity.AddScriptLink(link);
         entity.AddCellIndex(unit.CellIndex);
-        entity.AddUnitType(unit.UnitType);
+        entity.AddUnitCombatType(unit.UnitCombatType);
         entity.AddPlayerTeam(unit.Team);
         entity.AddBattlefieldLink(unit.Map.Entity);
         entity.isUnitRequestInit = true;

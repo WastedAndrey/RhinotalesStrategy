@@ -23,10 +23,10 @@ public class UnitInitSystem : IExecuteSystem
 
             item.battlefieldLink.BattlefieldEntity.battlefield.Cells[cellIndex.x, cellIndex.y].cell.InnerEntity = item;
             item.battlefieldLink.BattlefieldEntity.battlefield.CellsPassMap[cellIndex.x, cellIndex.y] = false;
-            if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn)
+            if (item.playerTeam.Team == item.battlefieldLink.BattlefieldEntity.battlefield.CurrentTurn && item.unitCombatType.UnitCombatType != UnitCombatType.NonCombat)
             {
                 item.isUnitTurn = true;
-                item.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = true;
+                item.isRequestUpdateUnitView = true;
             }
 
             item.isUnitRequestInit = false;

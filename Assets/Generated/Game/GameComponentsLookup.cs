@@ -23,13 +23,15 @@ public static class GameComponentsLookup {
     public const int PathfindResult = 12;
     public const int PathfindVizualizer = 13;
     public const int PlayerTeam = 14;
-    public const int ScriptLink = 15;
-    public const int Selected = 16;
-    public const int UnitRequestInit = 17;
-    public const int UnitTurn = 18;
-    public const int UnitType = 19;
+    public const int RequestDestroyUnitEntity = 15;
+    public const int RequestUpdateUnitView = 16;
+    public const int ScriptLink = 17;
+    public const int Selected = 18;
+    public const int UnitCombatType = 19;
+    public const int UnitRequestInit = 20;
+    public const int UnitTurn = 21;
 
-    public const int TotalComponents = 20;
+    public const int TotalComponents = 22;
 
     public static readonly string[] componentNames = {
         "Battlefield",
@@ -47,11 +49,13 @@ public static class GameComponentsLookup {
         "PathfindResult",
         "PathfindVizualizer",
         "PlayerTeam",
+        "RequestDestroyUnitEntity",
+        "RequestUpdateUnitView",
         "ScriptLink",
         "Selected",
+        "UnitCombatType",
         "UnitRequestInit",
-        "UnitTurn",
-        "UnitType"
+        "UnitTurn"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -70,10 +74,12 @@ public static class GameComponentsLookup {
         typeof(PathfindResultComponent),
         typeof(PathfindVizualizerComponent),
         typeof(PlayerTeamComponent),
+        typeof(RequestDestroyUnitEntity),
+        typeof(RequestUpdateUnitViewComponent),
         typeof(ScriptLinkComponent),
         typeof(SelectedComponent),
+        typeof(UnitCombatTypeComponent),
         typeof(UnitRequestInitComponent),
-        typeof(UnitTurnComponent),
-        typeof(UnitTypeComponent)
+        typeof(UnitTurnComponent)
     };
 }

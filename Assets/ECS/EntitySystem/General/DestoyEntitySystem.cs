@@ -7,7 +7,7 @@ public class DestoyEntitySystem : IExecuteSystem
 
     public DestoyEntitySystem(Contexts contexts)
     {
-        _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Clicked, GameMatcher.UnitTurn));
+       // _entities = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Clicked, GameMatcher.UnitTurn));
     }
     public void Execute()
     {

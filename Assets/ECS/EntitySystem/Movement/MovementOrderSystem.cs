@@ -43,9 +43,8 @@ public class MovementOrderSystem : IExecuteSystem
             cellEntity.cell.InnerEntity = unitEntity;
             battlefield.CellsPassMap[unitEntity.cellIndex.Index.x, unitEntity.cellIndex.Index.y] = false;
             unitEntity.isUnitTurn = false;
-            unitEntity.scriptLink.Script.GetComponent<UnitBase>().IsUnitTurn = false;
             unitEntity.isSelected = false;
-            unitEntity.scriptLink.Script.GetComponent<UnitBase>().IsSelected = false;
+            unitEntity.isRequestUpdateUnitView = true;
             unitEntity.isLockUI = true;
             unitEntity.isLockInput = true;
             unitEntity.AddMovementAnimation(0, path, unitEntity.battlefieldLink.BattlefieldEntity.battlefield.MapSettings);
