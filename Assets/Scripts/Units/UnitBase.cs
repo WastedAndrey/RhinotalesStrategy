@@ -116,7 +116,9 @@ public class UnitBase : MonoBehaviour
 
     public void Remove()
     {
-        _link.Entity.isRequestDestroyUnitEntity = true;
+        if (_link.Entity != null)
+            _link.Entity.isRequestDestroyUnitEntity = true;
+
         RemoveInternal();
 
         if (Application.isPlaying)
