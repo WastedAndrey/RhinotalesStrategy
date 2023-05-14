@@ -8,11 +8,11 @@ public class PathfindVizualizer : MonoBehaviour
     [SerializeField]
     private EntityLink _entityLink;
     [SerializeField]
-    private LineRenderer _lineRenderer;
+    private LineRendererNew _lineRendererNew;
     [SerializeField]
     private Transform _pathUnavailableIcon;
 
-    private void Awake()
+    private void Start()
     {
         Hide();
         _entityLink.Init();
@@ -20,16 +20,15 @@ public class PathfindVizualizer : MonoBehaviour
 
     public void SetPath(List<Vector3> positions)
     {
-        _lineRenderer.positionCount = positions.Count;
-        _lineRenderer.SetPositions(positions.ToArray());
-        _lineRenderer.enabled = true;
+        _lineRendererNew.LoadPoints(positions);
+        _lineRendererNew.Show();
         _pathUnavailableIcon.gameObject.SetActive(false);
     }
 
     public void SetPathUnavailable(Vector3 point)
     {
         _pathUnavailableIcon.transform.position = point;
-        _lineRenderer.enabled = false;
+        _lineRendererNew.Hide();
         _pathUnavailableIcon.gameObject.SetActive(true);
 
     }
@@ -37,7 +36,7 @@ public class PathfindVizualizer : MonoBehaviour
     public void Hide()
     {
         _pathUnavailableIcon.gameObject.SetActive(false);
-        _lineRenderer.enabled = false;
+        _lineRendererNew.Hide();
     }
 
     [Button]

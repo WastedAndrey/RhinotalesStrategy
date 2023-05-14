@@ -14,8 +14,15 @@ public class EditPanel : MonoBehaviour
     private TMP_Dropdown _dropdownUnitType;
     [SerializeField]
     private MapBuilder _mapBuilder;
+    [SerializeField]
+    private EntityLink _entityLink;
 
     LayerMask layerMask = LayersManager.LayerMaskMap;
+
+    private void Awake()
+    {
+        _entityLink.Init();
+    }
 
     private void OnEnable()
     {
@@ -37,6 +44,8 @@ public class EditPanel : MonoBehaviour
     private void OnToggleEditModeChanged(bool value)
     {
         _mapBuilder.IsEditing = value;
+        _entityLink.Entity.isLockInput = value;
+        _entityLink.Entity.isLockUI = value;
     }
     private void OnDropdownPlayerTeam(int value)
     {
