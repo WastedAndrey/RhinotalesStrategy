@@ -24,7 +24,7 @@ public class Map : MonoBehaviour
     public MapSettings Settings { get => _settings; }
     public GameEntity Entity { get => _link.Entity; }
 
-    private void Awake()
+    private void Start()
     {
         _link.Init();
         for (int i = 0; i < _units.Count; i++)
@@ -59,6 +59,7 @@ public class Map : MonoBehaviour
 #if UNITY_EDITOR
             newUnit = (UnitBase)UnityEditor.PrefabUtility.InstantiatePrefab(prefab);
             newUnit.transform.position = position;
+            newUnit.ShowPause = (float)cellIndex.y / (float)_settings.CellsCount.y * 2f + 1;
 #endif
         }
 

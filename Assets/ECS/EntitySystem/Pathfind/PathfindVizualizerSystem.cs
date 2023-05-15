@@ -24,8 +24,8 @@ public class PathfindVizualizerSystem : IExecuteSystem
 
         foreach (var item in _entitiesVizualizer)
         {
-            var vizualizer = item.scriptLink.Script.GetComponent<PathfindVizualizer>();
-
+            var vizualizer = item.scriptLink.Script.GetComponent<PathfindVizualizer>(); // GetComponent should be removed from update of cause
+            // i just need learn or invent some good ECS pattern for update components     
             if (entityPathfind == null || _entitiesLockInput.count > 0 || entityPathfind.pathfindResult.StartPosition == entityPathfind.pathfindResult.TargetPosition)
             {
                 vizualizer.Hide();

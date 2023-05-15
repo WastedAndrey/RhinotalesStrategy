@@ -12,6 +12,10 @@ public class CombatUnit : UnitBase
     private GameObject _selectedEffect;
     [SerializeField]
     private GameObject _unitTurnEffect;
+    [SerializeField]
+    private GameObject _mainModel;
+    [SerializeField]
+    private ShatterAnimations _shatterAnimations;
 
     public override PlayerTeam Team
     {
@@ -19,7 +23,7 @@ public class CombatUnit : UnitBase
 
         set
         {
-            ChangeMaterial(_teamSettings.GetTeamColor(value));
+            SetMaterial(_teamSettings.GetTeamColor(value));
             _team = value;
         }
     }
@@ -44,11 +48,49 @@ public class CombatUnit : UnitBase
         }
     }
 
-    private void ChangeMaterial(Material material)
+    private SimpleTimer _showTimer;
+
+    private void SetMaterial(Material material)
     {
         for (int i = 0; i < _renderers.Count; i++)
         {
             _renderers[i].sharedMaterial = material;
         }
+        _shatterAnimations.SetMaterial(material);
+    }
+
+    protected override void AwakeInternal()
+    {
+        this.gameObject.SetActive(false);
+        _mainModel.gameObject.SetActive(false);
+        if (_showPause > 0)
+        {
+            _showTimer = new SimpleTimer();
+            _showTimer.Elapsed += RunStartAnimations;
+            _showTimer.Start(_showPause);
+        }
+        else
+            RunStartAnimations();
+
+        base.AwakeInternal();
+    }
+
+    private void RunStartAnimations()
+    {
+        this.gameObject.SetActive(true);
+        _shatterAnimations.Init();
+        _shatterAnimations.CreationAnimationFinished += OnCreationAnimationFinished;
+        _shatterAnimations.StartCreationAnimation();
+    }
+
+    protected override void OnDestroyInternal()
+    {
+        _shatterAnimations.CreationAnimationFinished -= OnCreationAnimationFinished;
+        base.OnDestroyInternal();
+    }
+
+    private void OnCreationAnimationFinished()
+    {
+        _mainModel.gameObject.SetActive(true);
     }
 }

@@ -37,6 +37,9 @@ public class UnitBase : MonoBehaviour
     [SerializeField]
     protected bool _isUnitTurn;
 
+    [SerializeField]
+    protected float _showPause = 0; // pause after creation of unit before it is shown to player
+
     public virtual UnitType UnitType { get => _unitType; set => _unitType = value; }
     public virtual UnitCombatType UnitCombatType { get => _unitCombatType; set => _unitCombatType = value; }
     public virtual PlayerTeam Team { get => _team; set => _team = value; }
@@ -56,7 +59,9 @@ public class UnitBase : MonoBehaviour
     public virtual int MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
     public virtual bool IsSelected { get => _isSelected; set => _isSelected = value; }
     public virtual bool IsUnitTurn { get => _isUnitTurn; set => _isUnitTurn = value; }
+    public virtual float ShowPause { get => _showPause; set => _showPause = value; }
     public Map Map { get; private set; }
+  
 
     public Action<UnitBase, Vector2Int, Vector2Int> CellChanged;
     public Action<UnitBase> Destroyed;
@@ -135,4 +140,10 @@ public class UnitBase : MonoBehaviour
     }
 
     protected virtual void OnClickInternal(RaycastHit hit) { }
+
+    private void Update()
+    {
+        UpdateInternal();
+    }
+    protected virtual void UpdateInternal() { }
 }

@@ -17,8 +17,8 @@ public class UpdateUnitViewSystem : IExecuteSystem
         var array = _entitiesUnits.GetEntities();
         foreach (var item in array)
         {
-            var script = item.scriptLink.Script.GetComponent<UnitBase>();
-            script.IsUnitTurn = item.isUnitTurn;
+            var script = item.scriptLink.Script.GetComponent<UnitBase>(); // GetComponent should be removed from update of cause
+            script.IsUnitTurn = item.isUnitTurn;  // i just need learn or invent some good ECS pattern for update components      
             script.IsSelected = item.isSelected;
             script.CellIndex = item.cellIndex.Index;
             item.isRequestUpdateUnitView = false;

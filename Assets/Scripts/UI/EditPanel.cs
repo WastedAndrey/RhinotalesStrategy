@@ -17,7 +17,7 @@ public class EditPanel : MonoBehaviour
     [SerializeField]
     private EntityLink _entityLink;
 
-    LayerMask layerMask = LayersManager.LayerMaskMap;
+    private LayerMask layerMask = LayersManager.LayerMaskMap;
 
     private void Awake()
     {
